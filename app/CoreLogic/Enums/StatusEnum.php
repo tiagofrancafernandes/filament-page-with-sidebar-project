@@ -7,17 +7,29 @@ use App\CoreLogic\Interfaces\HasColor;
 enum StatusEnum: string implements HasColor
 {
     case Pending        = 'pending';
+
     case Completed      = 'completed';
+
     case Failed         = 'failed';
+
     case Progress       = 'progress';
+
     case Canceled       = 'canceled';
+
     case Reversed       = 'reversed';
+
     case Rejected       = 'rejected';
+
     case Active         = 'active';
+
     case InActive       = 'Inactive';
+
     case Closed         = 'closed';
+
     case Blocked        = 'blocked';
+
     case Locked         = 'locked';
+
     case Normal         = 'normal';
 
     public function label($language = null): string

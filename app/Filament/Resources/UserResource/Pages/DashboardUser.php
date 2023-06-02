@@ -8,10 +8,9 @@ use App\Filament\Resources\UserResource;
 use App\Filament\Resources\UserResource\Widgets\UserLastLoginWidget;
 use App\Filament\Resources\UserResource\Widgets\UserProfileWidget;
 use App\Filament\Resources\UserResource\Widgets\UserStatusWidget;
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 
 class DashboardUser extends Page
-{   
+{
     protected static string $resource = UserResource::class;
 
     protected static string $view = 'filament.resources.user-resource.pages.dashboard-user';

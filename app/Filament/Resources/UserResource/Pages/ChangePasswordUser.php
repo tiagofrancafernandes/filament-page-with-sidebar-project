@@ -7,14 +7,12 @@ use App\Models\User;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\Page;
 use Illuminate\Support\Facades\DB;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use App\Filament\Resources\UserResource;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\HasFormActions;
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 
 class ChangePasswordUser extends Page
 {
@@ -94,7 +92,6 @@ class ChangePasswordUser extends Page
         $this->validate();
 
         DB::transaction(function () {
-
             $this->record->update([
                 'password' => Hash::make($this->password),
             ]);

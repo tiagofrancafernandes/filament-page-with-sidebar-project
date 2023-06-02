@@ -4,10 +4,10 @@ namespace App\CoreLogic\Enums;
 
 use App\CoreLogic\Interfaces\HasColor;
 
-
 enum LanguageEnum: string implements HasColor
 {
     case Arabic     = "ar";
+
     case English    = "en";
 
     public function label(): string
@@ -21,7 +21,7 @@ enum LanguageEnum: string implements HasColor
 
     public function color(): string
     {
-        return match ($this){
+        return match ($this) {
             self::Arabic        => ColorEnum::Blue->value,
             self::English       => ColorEnum::Indigo->value,
             default             => ColorEnum::Blue->value

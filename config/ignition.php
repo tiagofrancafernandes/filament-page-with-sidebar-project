@@ -25,7 +25,6 @@ use Spatie\LaravelIgnition\Solutions\SolutionProviders\ViewNotFoundSolutionProvi
 use Spatie\LaravelIgnition\Solutions\SolutionProviders\OpenAiSolutionProvider;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Editor
@@ -131,7 +130,6 @@ return [
     */
 
     'ignored_solution_providers' => [
-
     ],
 
     /*

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Language display name
@@ -39,8 +38,8 @@ return [
     */
 
     'locales' => [
-        'pt_BR' => ['name' => 'Brazilian Portuguese', 'script' => 'Latn', 'native' => 'português do Brasil', 'flag_code' => 'br' ],
-        'en' => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'flag_code' => 'us'],
+        'pt_BR' => ['name' => 'Brazilian Portuguese', 'script' => 'Latn', 'native' => 'português do Brasil', 'flag_code' => 'br'],
+        'en' => ['name' => 'English', 'script' => 'Latn', 'native' => 'English', 'flag_code' => 'us'],
 
         // 'ar' => ['name' => 'Arabic',                 'script' => 'Arab', 'native' => 'العربية', 'flag_code' => 'sa'],
         // 'fr' => ['name' => 'French',                 'script' => 'Latn', 'native' => 'français', 'flag_code' => 'fr'],

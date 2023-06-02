@@ -2,41 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use Str;
-use Closure;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
-use Tables\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Spatie\Permission\Models\Role;
 use App\CoreLogic\Enums\StatusEnum;
 use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\Layout;
 use App\CoreLogic\Enums\LanguageEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use Filament\Navigation\NavigationItem;
-use Filament\Tables\Columns\TextColumn;
 use Spatie\Activitylog\Models\Activity;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Filters\TernaryFilter;
 use App\Filament\Resources\UserResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\UserResource\Pages\DashboardUser;
 use App\Filament\Resources\UserResource\Pages\ListActivitiesUser;
 use AymanAlhattami\FilamentPageWithSidebar\PageNavigationItem;
-use App\Filament\Resources\UserResource\Pages\ListActivityUser;
-use App\Filament\Resources\UserResource\Pages\ListUserActivity;
 use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
-use App\Filament\Resources\UserResource\Pages\ListRecordActivity;
-use App\Filament\Resources\UserResource\Pages\ListRecordActivityUser;
 use App\Filament\Resources\UserResource\Pages\ListUserActivitiesUser;
 use Illuminate\Database\Eloquent\Model;
 
@@ -89,61 +76,33 @@ class UserResource extends Resource implements HasShieldPermissions
             ->setDescription($record->created_at)
             ->setNavigationItems([
                 PageNavigationItem::make(__('User Dashboard'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('dashboard', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.dashboard');
-                    })->isHiddenWhen(false),
+                    ->url(fn () => static::getUrl('dashboard', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.dashboard'))->isHiddenWhen(false),
                 PageNavigationItem::make(__('View User'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('view', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.view');
-                    })->isHiddenWhen(false),
+                    ->url(fn () => static::getUrl('view', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.view'))->isHiddenWhen(false),
                 PageNavigationItem::make(__('Edit User'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('edit', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.edit');
-                    })
+                    ->url(fn () => static::getUrl('edit', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.edit'))
                     ->isHiddenWhen(false),
                 PageNavigationItem::make(__('Manage User'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('manage', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.manage');
-                    })->isHiddenWhen(false),
+                    ->url(fn () => static::getUrl('manage', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.manage'))->isHiddenWhen(false),
                 PageNavigationItem::make(__('Change Password'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('password.change', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.password.change');
-                    })
+                    ->url(fn () => static::getUrl('password.change', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.password.change'))
                     ->isHiddenWhen(false),
                 PageNavigationItem::make(__('User Activities'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('activities.user', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.activities.user');
-                    })
+                    ->url(fn () => static::getUrl('activities.user', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.activities.user'))
                     ->isHiddenWhen(false)
                     ->badge(Activity::query()->where([['causer_type', '=', User::class], ['causer_id', '=', $record->id]])->count()),
                 PageNavigationItem::make(__('Record Activities'))
-                    ->url(function () use ($record) {
-                        return static::getUrl('activities', ['record' => $record->id]);
-                    })->icon('heroicon-o-collection')
-                    ->isActiveWhen(function () {
-                        return request()->routeIs(static::getRouteBaseName() . '.activities');
-                    })
+                    ->url(fn () => static::getUrl('activities', ['record' => $record->id]))->icon('heroicon-o-collection')
+                    ->isActiveWhen(fn () => request()->routeIs(static::getRouteBaseName() . '.activities'))
                     ->badge(Activity::query()->where([['subject_type', '=', User::class], ['subject_id', '=', $record->id]])->count())
                     ->isHiddenWhen(false)
-                    ,
+                ,
             ]);
     }
 
@@ -213,16 +172,12 @@ class UserResource extends Resource implements HasShieldPermissions
                     Filter::make('name')
                         ->form([
                             Forms\Components\TextInput::make('name'),
-                        ])->query(function (Builder $query, array $data): Builder {
-                            return $query->where('name', 'like', "%{$data['name']}%");
-                        }),
+                        ])->query(fn (Builder $query, array $data): Builder => $query->where('name', 'like', "%{$data['name']}%")),
 
                     Filter::make('email')
                         ->form([
                             Forms\Components\TextInput::make('email'),
-                        ])->query(function (Builder $query, array $data): Builder {
-                            return $query->where('email', 'like', "%{$data['email']}%");
-                        }),
+                        ])->query(fn (Builder $query, array $data): Builder => $query->where('email', 'like', "%{$data['email']}%")),
 
                     Filter::make('created_at')
                         ->form([
@@ -239,7 +194,6 @@ class UserResource extends Resource implements HasShieldPermissions
                                     fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                                 );
                         }),
-
                 ],
             )
             ->actions([

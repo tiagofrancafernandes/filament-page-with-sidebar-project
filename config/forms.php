@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Components
@@ -13,17 +12,12 @@ return [
     */
 
     'components' => [
-
         'actions' => [
-
             'modal' => [
-
                 'actions' => [
                     'alignment' => 'left',
                 ],
-
             ],
-
         ],
 
         'date_time_picker' => [
@@ -36,7 +30,6 @@ return [
                 'time_with_seconds' => 'H:i:s',
             ],
         ],
-
     ],
 
     /*
@@ -64,5 +57,4 @@ return [
     */
 
     'dark_mode' => false,
-
 ];

@@ -129,7 +129,6 @@ class RoleResource extends Resource implements HasShieldPermissions
                             ]),
                     ])
                     ->columnSpan('full'),
-
             ]);
     }
 
@@ -263,7 +262,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                             ->reactive()
                             ->afterStateUpdated(function (Closure $set, Closure $get, $state) use ($entity) {
                                 collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))->each(function ($permission) use ($set, $entity, $state) {
-                                    $set($permission.'_'.$entity['resource'], $state);
+                                    $set($permission . '_' . $entity['resource'], $state);
                                 });
 
                                 if (! $state) {
@@ -292,7 +291,7 @@ class RoleResource extends Resource implements HasShieldPermissions
     public static function getResourceEntityPermissionsSchema($entity): ?array
     {
         return collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))->reduce(function ($permissions /** @phpstan ignore-line */, $permission) use ($entity) {
-            $permissions[] = Forms\Components\Checkbox::make($permission.'_'.$entity['resource'])
+            $permissions[] = Forms\Components\Checkbox::make($permission . '_' . $entity['resource'])
                 ->label(FilamentShield::getLocalizedResourcePermissionLabel($permission))
                 ->extraAttributes(['class' => 'text-primary-600'])
                 ->afterStateHydrated(function (Closure $set, Closure $get, $record) use ($entity, $permission) {
@@ -300,7 +299,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                         return;
                     }
 
-                    $set($permission.'_'.$entity['resource'], $record->checkPermissionTo($permission.'_'.$entity['resource']));
+                    $set($permission . '_' . $entity['resource'], $record->checkPermissionTo($permission . '_' . $entity['resource']));
 
                     static::refreshResourceEntityStateAfterHydrated($record, $set, $entity);
 
@@ -352,7 +351,7 @@ class RoleResource extends Resource implements HasShieldPermissions
         collect(app(FilamentShield::class)->getResources())->each(function ($entity) use ($set, $state) {
             $set($entity['resource'], $state);
             collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))->each(function ($permission) use ($entity, $set, $state) {
-                $set($permission.'_'.$entity['resource'], $state);
+                $set($permission . '_' . $entity['resource'], $state);
             });
         });
 
@@ -378,9 +377,7 @@ class RoleResource extends Resource implements HasShieldPermissions
     protected static function refreshResourceEntityStateAfterUpdate(Closure $set, Closure $get, array $entity): void
     {
         $permissionStates = collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))
-            ->map(function ($permission) use ($get, $entity) {
-                return (bool) $get($permission.'_'.$entity['resource']);
-            });
+            ->map(fn ($permission) => (bool) $get($permission . '_' . $entity['resource']));
 
         if ($permissionStates->containsStrict(false) === false) {
             $set($entity['resource'], true);
@@ -400,11 +397,10 @@ class RoleResource extends Resource implements HasShieldPermissions
                 return $roles;
             }, collect())
             ->values()
-            ->groupBy(function ($item) {
-                return $item;
-            })->map->count()
+            ->groupBy(fn ($item) => $item)->map->count()
             ->reduce(function ($counts, $role, $key) use ($entity) {
                 $count = count(Utils::getResourcePermissionPrefixes($entity['fqcn']));
+
                 if ($role > 1 && $role === $count) {
                     $counts[$key] = true;
                 } else {
@@ -513,7 +509,7 @@ class RoleResource extends Resource implements HasShieldPermissions
         $resourcePermissions = collect();
         collect(app(FilamentShield::class)->getResources())->each(function ($entity) use ($resourcePermissions) {
             collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))->map(function ($permission) use ($resourcePermissions, $entity) {
-                $resourcePermissions->push((string) Str::of($permission.'_'.$entity['resource']));
+                $resourcePermissions->push((string) Str::of($permission . '_' . $entity['resource']));
             });
         });
 

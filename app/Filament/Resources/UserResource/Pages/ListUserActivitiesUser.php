@@ -4,17 +4,12 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Models\User;
 use Filament\Resources\Pages\Page;
-use Illuminate\Support\Collection;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Spatie\Activitylog\Models\Activity;
 use App\Filament\Resources\UserResource;
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
@@ -67,9 +62,7 @@ class ListUserActivitiesUser extends Page implements HasTable
             TextColumn::make('log_name'),
             TextColumn::make('event'),
             TextColumn::make('subject_type')->label('Subject')
-            ->description(function (Activity $record) {
-                return $record->subject_id;
-            }),
+            ->description(fn (Activity $record) => $record->subject_id),
             // TextColumn::make('subject_id'),
             TextColumn::make('created_at'),
         ];

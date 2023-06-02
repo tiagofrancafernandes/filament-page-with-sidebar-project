@@ -5,21 +5,16 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\Page;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\CoreLogic\Enums\StatusEnum;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use App\Filament\Resources\UserResource;
-use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\HasFormActions;
-use Filament\Forms\Components\MarkdownEditor;
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use App\Filament\Resources\UserResource\Widgets\UserClosedWidget;
 use App\Filament\Resources\UserResource\Widgets\UserStatusWidget;
-use Illuminate\Support\Str;
 
 class ManageUser extends Page
 {
@@ -85,6 +80,7 @@ class ManageUser extends Page
                     Select::make('status')->label(__('Status'))
                         ->options(function () {
                             $filteredArray = [];
+
                             foreach (StatusEnum::forUserToArray() as $key => $value) {
                                 if ($key != $this->record->status) {
                                     $filteredArray[$key] = $value;
@@ -132,7 +128,6 @@ class ManageUser extends Page
             ->success()
             ->send();
     }
-
 
     protected function getHeaderWidgets(): array
     {
