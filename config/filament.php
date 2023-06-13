@@ -235,7 +235,7 @@ return [
         'footer' => [
             'should_show_logo' => true,
         ],
-        'max_content_width' => null,
+        'max_content_width' => 'full', // Full width and resize when sidebar is opened
         'notifications' => [
             'vertical_alignment' => 'top',
             'alignment' => 'right',
@@ -245,8 +245,9 @@ return [
             'groups' => [
                 'are_collapsible' => true,
             ],
-            'width' => null,
-            'collapsed_width' => null,
+
+            'width' => '14rem', // default -> null ?? 20rem
+            'collapsed_width' => '4.5rem', // default -> null ?? 5.4rem // 0 hides if collapsed
         ],
     ],
 

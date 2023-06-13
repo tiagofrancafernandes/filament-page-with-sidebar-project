@@ -1,22 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Posts;
+use App\Http\Controllers\ThemeSetController;
+use Illuminate\Support\Facades\Redirect;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', fn () => view('welcome'));
-
-Route::redirect('/', 'admin');
+// Route::get('/', fn () => Redirect::to(route('filament.pages.dashboard')))->name('home');
+Route::get('/', fn () => Redirect::to(route('posts.index')))->name('home');
 
 if ($loginPage = config('filament.auth.pages.login')) {
     Route::get('/login', $loginPage)->name('login');
 }
+
+Route::get('set-theme/{themeName}', ThemeSetController::class)->name('theme.set');
+
+Route::prefix('/posts')->as('posts.')->group(function () {
+    Route::get('/', Posts\IndexController::class)->name('index');
+    Route::get('/{post:slug}', Posts\ShowController::class)->name('show');
+});

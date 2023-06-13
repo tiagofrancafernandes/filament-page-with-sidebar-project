@@ -1,3 +1,4 @@
+{{-- admin/users/[ID]/activities/user --}}
 <x-filament-page-with-sidebar::page>
     <x-filament::page :widget-data="['record' => $record]">
         {{ $this->table }}

@@ -6,25 +6,25 @@ use App\CoreLogic\Interfaces\HasColor;
 
 enum LanguageEnum: string implements HasColor
 {
-    case Arabic     = "ar";
+    case Portuguese = "pt";
 
-    case English    = "en";
+    case English = "en";
 
     public function label(): string
     {
         return match ($this) {
-            self::Arabic        =>  'Arabic',
-            self::English       =>  'English',
-            default             =>  'Arabic'
+            self::Portuguese => 'Portuguese',
+            self::English => 'English',
+            default => 'English'
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Arabic        => ColorEnum::Blue->value,
-            self::English       => ColorEnum::Indigo->value,
-            default             => ColorEnum::Blue->value
+            self::Portuguese => ColorEnum::Blue->value,
+            self::English => ColorEnum::Indigo->value,
+            default => ColorEnum::Indigo->value
         };
     }
 

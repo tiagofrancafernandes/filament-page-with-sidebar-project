@@ -10,6 +10,49 @@ use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 
+/**
+ * App\Models\DynamicContent
+ *
+ * @property string $id
+ * @property string|null $organization_id
+ * @property string $slug
+ * @property string $title
+ * @property string|null $cover_image
+ * @property string|null $small_description
+ * @property string|null $content
+ * @property bool $active
+ * @property string|null $css_code
+ * @property string|null $js_code
+ * @property string|null $html_code
+ * @property \Illuminate\Support\Carbon|null $show_from
+ * @property \Illuminate\Support\Carbon|null $show_to
+ * @property AsCollection|null $search_tags
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @method static \Database\Factories\DynamicContentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereCoverImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereCssCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereHtmlCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereJsCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereSearchTags($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereShowFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereShowTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereSmallDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DynamicContent whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class DynamicContent extends Model implements HasMedia
 {
     use HasFactory;

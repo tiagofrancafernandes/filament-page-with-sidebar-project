@@ -19,7 +19,7 @@ return new class() extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('status')->default(StatusEnum::Active->value);
-            $table->string('language')->default(LanguageEnum::Arabic->value);
+            $table->string('language')->default(LanguageEnum::English->value);
             $table->rememberToken();
             $table->timestamps();
         });
