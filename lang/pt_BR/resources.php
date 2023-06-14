@@ -45,4 +45,7 @@ return [
         'identifier_of_the_item_visible_in_the_url' => 'Identificador do :item (visivel na URL)',
         'search_tags_searchable' => 'Termos/tags de pesquisa',
     ],
+    'post' => [
+        'open_post_url' => 'Abrir URL do post',
+    ],
 ];

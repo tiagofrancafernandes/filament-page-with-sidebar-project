@@ -38,7 +38,9 @@
         "spatie/laravel-ignition": "^2.0",
         "spatie/laravel-permission": "^5.4",
         "stijnvanouplines/blade-country-flags": "^1.0",
-        "symfony/thanks": "^1.2"
+        "symfony/thanks": "^1.2",
+        "pboivin/filament-peek": "^0.2.1",
+        "solution-forest/filament-tree": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

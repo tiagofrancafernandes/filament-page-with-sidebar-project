@@ -14,8 +14,8 @@ class EditPost extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
-            \App\Filament\Pages\Actions\ButtonLink::make('Preview-post')
-                ->translateLabel()
+            \App\Filament\Pages\Actions\ButtonLink::make('open-post-url')
+            ->label(__('resources.post.open_post_url'))
                 ->disabled(fn ($record) => !$record?->published_at)
                 ->tooltip(__('Only published items can be viewed'))
                 ->url(fn ($record) => \route('posts.show', $record->slug))
